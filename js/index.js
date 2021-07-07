@@ -6,8 +6,9 @@
 function adminLogin(username, password) {
   if ((username === "admin" || username === "ADMIN") && password === "12345") {
     return "Access granted";
+  } else {
+    return "Access denied";
   }
-  return "Access denied";
 }
 
 /*
@@ -30,6 +31,24 @@ function howsTheWeather(temperature) {
   return `It's ${response} out there!`;
 }
 
+/* 
+  Write a method `fizzbuzz` takes in a number. For multiples of three, return
+  "Fizz" instead of the number. For the multiples of five, return "Buzz". For
+  numbers which are multiples of both three and five, return "FizzBuzz". For
+  all other numbers, just return the number itself.
+*/
+function fizzbuzz(num) {
+  if (num % 3 === 0 && num % 5 === 0) {
+    return "FizzBuzz";
+  } else if (num % 3 === 0) {
+    return "Fizz";
+  } else if (num % 5 === 0) {
+    return "Buzz";
+  } else {
+    return num;
+  }
+}
+
 /*
   Write a method `calculator` that takes three arguments: an operation and two
   numbers. If the operation is one of the following: `+`, `-`, `*`, or `\`,
@@ -48,23 +67,5 @@ function calculator(operation, num1, num2) {
       return num1 / num2;
     default:
       console.log("Invalid operation!");
-  }
-}
-
-/* 
-  Write a method `fizzbuzz` takes in a number. For multiples of three, return
-  "Fizz" instead of the number. For the multiples of five, return "Buzz". For
-  numbers which are multiples of both three and five, return "FizzBuzz". For
-  all other numbers, just return the number itself.
-*/
-function fizzbuzz(num) {
-  if (num % 3 === 0 && num % 5 === 0) {
-    return "FizzBuzz";
-  } else if (num % 3 === 0) {
-    return "Fizz";
-  } else if (num % 5 === 0) {
-    return "Buzz";
-  } else {
-    return num;
   }
 }
