@@ -12,6 +12,9 @@ in Ruby. In this lesson, we'll see more examples of how to use those tools to
 perform control flow using **conditional statements** with the `if/else` and
 `case/when` keywords.
 
+Make sure to code along with the Ruby examples in IRB to help get a feel for the
+syntax.
+
 ## `if/else` Statements
 
 Ruby has slightly different syntax for writing conditional statements using
@@ -53,9 +56,9 @@ else
 end
 ```
 
-In Ruby, unlike JavaScript,
-[`if/else` statements have a return value][if-else return], which means we could
-refactor the code above as follows:
+In Ruby, unlike JavaScript, `if/else` statements
+[have a return value][if-else return], which means we could refactor the code
+above as follows:
 
 [if-else return]: https://rubystyle.guide/#use-if-case-returns
 
@@ -234,6 +237,20 @@ owner = case dog
         end
 ```
 
+You can also use `then` with `when` to shorten up each condition to a single line:
+
+```rb
+dog = "cuddly"
+
+owner = case dog
+        when "hungry" then "Refilling food bowl."
+        when "thirsty" then "Refilling water bowl."
+        when "playful" then "Playing tug-of-war."
+        when "cuddly" then "Snuggling."
+        else "Reading newspaper."
+        end
+```
+
 ## Instructions
 
 Time to get some practice! Write your code in the `control_flow.rb` file. Run
@@ -243,71 +260,71 @@ the solution for each of these deliverables in the `js/index.js` file you can
 look at (but if you want an extra challenge, try solving them in Ruby without
 looking at the JavaScript solution).
 
-1. Write a method `admin_login` that takes two arguments, a username and a
-   password. If the username is "admin" or "ADMIN" and the password is "12345",
-   return "Access granted". Otherwise, return "Access denied".
+Write a method `admin_login` that takes two arguments, a username and a
+password. If the username is "admin" or "ADMIN" and the password is "12345",
+return "Access granted". Otherwise, return "Access denied".
 
-   ```rb
-   admin_login("sudo", "12345")
-   # => "Access denied"
-   admin_login("admin", "12345")
-   # => "Access granted"
-   admin_login("ADMIN", "12345")
-   # => "Access granted"
-   ```
+```rb
+admin_login("sudo", "12345")
+# => "Access denied"
+admin_login("admin", "12345")
+# => "Access granted"
+admin_login("ADMIN", "12345")
+# => "Access granted"
+```
 
-2. Write a method `hows_the_weather` that takes in one argument, a temperature.
-   If the temperature is below 40, return "It's brisk out there!". If the
-   temperature is between 40 and 65, return "It's a little chilly out there!".
-   If the temperature is above 85, return "It's too dang hot out there!".
-   Otherwise, return "It's perfect out there!"
+Write a method `hows_the_weather` that takes in one argument, a temperature.
+If the temperature is below 40, return "It's brisk out there!". If the
+temperature is between 40 and 65, return "It's a little chilly out there!".
+If the temperature is above 85, return "It's too dang hot out there!".
+Otherwise, return "It's perfect out there!"
 
-   ```rb
-   hows_the_weather(33)
-   # => "Brisk!"
-   hows_the_weather(99)
-   # => "Too dang hot"
-   hows_the_weather(75)
-   # => "Perfect!"
-   ```
+```rb
+hows_the_weather(33)
+# => "Brisk!"
+hows_the_weather(99)
+# => "Too dang hot"
+hows_the_weather(75)
+# => "Perfect!"
+```
 
-3. Write a method `fizzbuzz` takes in a number. For multiples of three, return
-   "Fizz" instead of the number. For the multiples of five, return "Buzz". For
-   numbers which are multiples of both three and five, return "FizzBuzz". For
-   all other numbers, just return the number itself.
+Write a method `fizzbuzz` takes in a number. For multiples of three, return
+"Fizz" instead of the number. For the multiples of five, return "Buzz". For
+numbers which are multiples of both three and five, return "FizzBuzz". For
+all other numbers, just return the number itself.
 
-   ```rb
-   fizzbuzz(1)
-   # 1
-   fizzbuzz(2)
-   # 2
-   fizzbuzz(3)
-   # Fizz
-   fizzbuzz(4)
-   # 4
-   fizzbuzz(5)
-   # Buzz
-   fizzbuzz(15)
-   ```
+```rb
+fizzbuzz(1)
+# 1
+fizzbuzz(2)
+# 2
+fizzbuzz(3)
+# Fizz
+fizzbuzz(4)
+# 4
+fizzbuzz(5)
+# Buzz
+fizzbuzz(15)
+```
 
-4. Write a method `calculator` that takes three arguments: an operation and two
-   numbers. If the operation is one of the following: `+`, `-`, `*`, or `\`,
-   return the value of calling the operation on the two numbers. Otherwise,
-   output a message saying "Invalid operation!" and return `nil`.
+Write a method `calculator` that takes three arguments: an operation and two
+numbers. If the operation is one of the following: `+`, `-`, `*`, or `\`,
+return the value of calling the operation on the two numbers. Otherwise,
+output a message saying "Invalid operation!" and return `nil`.
 
-   ```rb
-   calculator("+", 1, 1)
-   # => 2
-   calculator("-", 3, 1)
-   # => 2
-   calculator("*", 3, 2)
-   # => 6
-   calculator("/", 4, 2)
-   # => 2
-   calculator("nope", 4, 2)
-   # "Invalid operation!"
-   # => nil
-   ```
+```rb
+calculator("+", 1, 1)
+# => 2
+calculator("-", 3, 1)
+# => 2
+calculator("*", 3, 2)
+# => 6
+calculator("/", 4, 2)
+# => 2
+calculator("nope", 4, 2)
+# "Invalid operation!"
+# => nil
+```
 
 ## Conclusion
 
