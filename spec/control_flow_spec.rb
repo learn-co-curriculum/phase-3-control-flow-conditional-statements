@@ -1,9 +1,9 @@
 require_relative 'spec_helper'
 require_relative '../control_flow'
 
-describe 'control_flow' do
+describe 'control_flow.rb' do
   
-  describe 'admin_login' do
+  describe '#admin_login' do
     
     it 'returns "Access granted" if the username is "admin" and the password is "12345"' do
       expect(admin_login('admin', '12345')).to eq('Access granted')
@@ -21,7 +21,7 @@ describe 'control_flow' do
 
   end
 
-  describe 'hows_the_weather' do
+  describe '#hows_the_weather' do
     
     it 'returns "It\'s brisk out there!" if the temperature is below 40' do
       expect(hows_the_weather(33)).to eq("It\'s brisk out there!")
@@ -41,7 +41,7 @@ describe 'control_flow' do
 
   end
 
-  describe 'fizzbuzz' do
+  describe '#fizzbuzz' do
     
     it 'returns "FizzBuzz" when the input is a multiple of 3 and 5' do
       expect(fizzbuzz(15)).to eq('FizzBuzz')
@@ -65,7 +65,7 @@ describe 'control_flow' do
 
   end
 
-  describe 'calculator' do
+  describe '#calculator' do
     
     it 'adds two numbers' do
       expect(calculator('+', 1, 1)).to eq(2)
