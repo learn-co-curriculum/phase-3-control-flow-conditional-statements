@@ -22,6 +22,7 @@ Ruby has slightly different syntax for writing conditional statements using
 JavaScript:
 
 ```js
+// JavaScript
 let dog = "cuddly";
 let owner;
 
@@ -41,6 +42,7 @@ if (dog === "hungry") {
 Here's how we can write the equivalent statement in Ruby:
 
 ```rb
+# Ruby
 dog = "cuddly"
 
 if dog == "hungry"
@@ -176,6 +178,7 @@ side-by-side example with Ruby and JavaScript:
 [case vs if-else]: https://rubystyle.guide/#case-vs-if-else
 
 ```js
+// JavaScript
 let dog = "cuddly";
 let owner;
 
@@ -201,6 +204,7 @@ switch (dog) {
 And in Ruby:
 
 ```rb
+# Ruby
 dog = "cuddly"
 
 case dog
