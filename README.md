@@ -170,15 +170,20 @@ exception has been thrown.
 > occur before `divide()` starts working, they cannot be handled with a
 > `try/except` statement inside of `divide()`.
 
-## `case` Statements
+## Dictionary Mapping
 
-Last but not least, Python also has `case` statements, which are used to run
-multiple conditions against one value. As a reminder, `case` statements can be
-useful as a replacement for `if/else` statements,
-[when all the conditions use the same comparison][case vs if-else]. Here's a
-side-by-side example with Python and JavaScript:
+Unlike JavaScript, Python does not have `switch/case` statements. Python can
+handle `switch/case` logic in `if/else` statements, but for very long sets of
+conditions, it may be worthwhile to use **dictionary mapping** instead.
 
-[case vs if-else]: https://Pythonstyle.guide/#case-vs-if-else
+> NOTE: Python 3.10 has introduced `match/case` statements which function
+> very similarly to `switch/case` statements in JavaScript. Though we are using
+> an earlier version of Python in our curriculum, you can explore this new
+> feature in the [Python 3.10 documentation.][python matching]
+
+[python matching]: https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching
+
+Read through the following JavaScript code:
 
 ```js
 // JavaScript
@@ -204,83 +209,76 @@ switch (dog) {
 }
 ```
 
-And in Python:
+This `switch/case` statement takes the status of the `dog` as a string and sets
+the state of the owner accordingly.
+
+Let's take a look at how we might do that with an `if/else` statement in Python:
 
 ```py
 # Python
 dog = "cuddly"
 
-case dog
-when "hungry"
-  owner = "Refilling food bowl."
-when "thirsty"
-  owner = "Refilling water bowl."
-when "playful"
-  owner = "Playing tug-of-war."
-when "cuddly"
-  owner = "Snuggling."
-else
-  owner = "Reading newspaper."
-end
+if dog == "hungry":
+    owner = "Refilling food bowl."
+elif dog == "thirsty":
+    owner = "Refilling water bowl."
+elif dog == "playful":
+    owner = "Playing tug-of-war."
+elif dog == "cuddly":
+    owner = "Snuggling."
+else:
+    owner = "Reading newspaper."
 ```
 
-`case` statements, like `if` statements, also produce a return value, so again,
-we could refactor this Python example:
+As you can see, there is some repeated code in `dog ==`, but the code is
+still more concise than with a true `switch/case` statement in JavaScript.
+
+Now let's look at how we would handle this with dictionary mapping. Copy and
+paste the following code into the Python shell:
 
 ```py
 dog = "cuddly"
 
-owner = case dog
-        when "hungry"
-          "Refilling food bowl."
-        when "thirsty"
-          "Refilling water bowl."
-        when "playful"
-          "Playing tug-of-war."
-        when "cuddly"
-          "Snuggling."
-        else
-          "Reading newspaper."
-        end
+dict_map = {
+    "hungry": "Refilling food bowl.",
+    "thirsty": "Refilling water bowl.",
+    "playful": "Playing tug-of-war.",
+    "cuddly": "Snuggling.",
+}
+
+# Remember that a dictionary's .get() method lets us set a default value!
+owner = dict_map.get(dog, "Reading newspaper.")
 ```
 
-You can also use `then` with `when` to shorten up each condition to a single line:
-
-```py
-dog = "cuddly"
-
-owner = case dog
-        when "hungry" then "Refilling food bowl."
-        when "thirsty" then "Refilling water bowl."
-        when "playful" then "Playing tug-of-war."
-        when "cuddly" then "Snuggling."
-        else "Reading newspaper."
-        end
-```
+This approach is _very_ concise, but the mapping dictionary itself is not so
+intuitive to read; as we can see, the keys describe the state of the `dog`
+while the values describe the state of the `owner`. Dictionary mapping is a
+valuable tool for long lists of conditions, but `if/else` statements are
+typically the preferred method for handling `switch/case` logic in Python.
 
 ## Instructions
 
-Time to get some practice! Write your code in the `control_flow.rb` file. Run
-`learn test` to check your work. Your goal is to practice using control flow in
-Python to familiarize yourself with the syntax. There is a JavaScript version of
-the solution for each of these deliverables in the `js/index.js` file you can
-look at (but if you want an extra challenge, try solving them in Python without
-looking at the JavaScript solution).
+Time to get some practice! Write your code in the `lib` folder's
+`control_flow.py`. Run `pytest -x` to check your work. Your goal is to practice
+using control flow in Python to familiarize yourself with the syntax. There is a
+JavaScript version of the solution for each of these deliverables in the
+`js/index.js` file you can look at (but if you want an extra challenge, try
+solving them in Python without looking at the JavaScript solution).
 
-Write a method `#admin_login` that takes two arguments, a username and a
+Write a function `admin_login()` that takes two arguments, a username and a
 password. If the username is "admin" or "ADMIN" and the password is "12345",
 return "Access granted". Otherwise, return "Access denied".
 
 ```py
 admin_login("sudo", "12345")
-# => "Access denied"
+# "Access denied"
 admin_login("admin", "12345")
-# => "Access granted"
+# "Access granted"
 admin_login("ADMIN", "12345")
-# => "Access granted"
+# "Access granted"
 ```
 
-Write a method `#hows_the_weather` that takes in one argument, a temperature.
+Write a function `hows_the_weather()` that takes in one argument, a temperature.
 If the temperature is below 40, return "It's brisk out there!". If the
 temperature is between 40 and 65, return "It's a little chilly out there!".
 If the temperature is above 85, return "It's too dang hot out there!".
@@ -288,14 +286,14 @@ Otherwise, return "It's perfect out there!"
 
 ```py
 hows_the_weather(33)
-# => "Brisk!"
+# "Brisk!"
 hows_the_weather(99)
-# => "Too dang hot"
+# "Too dang hot"
 hows_the_weather(75)
-# => "Perfect!"
+# "Perfect!"
 ```
 
-Write a method `#fizzbuzz` takes in a number. For multiples of three, return
+Write a function `fizzbuzz()` takes in a number. For multiples of three, return
 "Fizz" instead of the number. For the multiples of five, return "Buzz". For
 numbers which are multiples of both three and five, return "FizzBuzz". For
 all other numbers, just return the number itself.
@@ -312,25 +310,26 @@ fizzbuzz(4)
 fizzbuzz(5)
 # Buzz
 fizzbuzz(15)
+# FizzBuzz
 ```
 
-Write a method `#calculator` that takes three arguments: an operation and two
+Write a function `calculator()` that takes three arguments: an operation and two
 numbers. If the operation is one of the following: `+`, `-`, `*`, or `/`,
 return the value of calling the operation on the two numbers. Otherwise,
-output a message saying "Invalid operation!" and return `nil`.
+output a message saying "Invalid operation!" and return `None`.
 
 ```py
 calculator("+", 1, 1)
-# => 2
+# 2
 calculator("-", 3, 1)
-# => 2
+# 2
 calculator("*", 3, 2)
-# => 6
+# 6
 calculator("/", 4, 2)
-# => 2
+# 2
 calculator("nope", 4, 2)
 # "Invalid operation!"
-# => nil
+# None
 ```
 
 ## Conclusion
@@ -339,16 +338,15 @@ Since you're already familiar with these control flow structures from
 JavaScript, you should have a good intuition of when it's appropriate to use
 these different tools. Try and develop familiarity with the differences in
 syntax between JavaScript and Python first, so that you'll be able to take
-advantage of some of Python's unique features like statement modifiers and the
-`unless` keyword in your own code.
+advantage of some of Python's unique features in your own code.
 
 One excellent resource for familiarizing yourself with the syntax and the
-preferred conventions of some Pythonists is the
-[Python style guide][Python style guide]. Make sure to bookmark this resource and
+coding standards for Python developers is the
+[PEP 8 - Style Guide for Python Code][PEP 8]. Make sure to bookmark this resource and
 refer to it if you're ever unsure how to format a particular block of code.
 
 ## Resources
 
-- [Python style guide][Python style guide]
+- [PEP 8 - Style Guide for Python Code][PEP 8]
 
-[Python style guide]: https://Pythonstyle.guide
+[PEP 8]: https://peps.python.org/pep-0008/
