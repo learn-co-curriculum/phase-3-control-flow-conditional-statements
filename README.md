@@ -2,22 +2,24 @@
 
 ## Learning Goals
 
-- Conditionally execute code with `if/else` and `case/when` statements
-- Use statement modifiers to write cleaner Ruby code
+- Conditionally execute code with `if/else` statements
+- Handle exceptions using `try/except` statements
+- Use dictionary mapping to handle `switch/case` logic
 
 ## Introduction
 
 In the last lesson, we saw how to use comparison methods and logical operators
-in Ruby. In this lesson, we'll see more examples of how to use those tools to
+in Python. In this lesson, we'll see more examples of how to use those tools to
 perform control flow using **conditional statements** with the `if/else` and
-`case/when` keywords.
+`try/except` keywords. We will also discuss how Python approaches `switch/case`
+statements.
 
-Make sure to code along with the Ruby examples in IRB to help get a feel for the
+Make sure to code along with the Python examples in IRB to help get a feel for the
 syntax.
 
 ## `if/else` Statements
 
-Ruby has slightly different syntax for writing conditional statements using
+Python has slightly different syntax for writing conditional statements using
 `if/else` than JavaScript. Here's a relatively complex `if/else` statement in
 JavaScript:
 
@@ -39,143 +41,144 @@ if (dog === "hungry") {
 }
 ```
 
-Here's how we can write the equivalent statement in Ruby:
+Here's how we can write the equivalent statement in Python:
 
-```rb
-# Ruby
+```py
+# Python
 dog = "cuddly"
 
-if dog == "hungry"
-  owner = "Refilling food bowl."
-elsif dog == "thirsty"
-  owner = "Refilling water bowl."
-elsif dog == "playful"
-  owner = "Playing tug-of-war."
-elsif dog == "cuddly"
-  owner = "Snuggling."
-else
-  owner = "Reading newspaper."
-end
+if dog == "hungry":
+    owner = "Refilling food bowl."
+elif dog == "thirsty":
+    owner = "Refilling water bowl."
+elif dog == "playful":
+    owner = "Playing tug-of-war."
+elif dog == "cuddly":
+    owner = "Snuggling."
+else:
+    owner = "Reading newspaper."
 ```
-
-In Ruby, unlike JavaScript, `if/else` statements
-[have a return value][if-else return], which means we could refactor the code
-above as follows:
-
-[if-else return]: https://rubystyle.guide/#use-if-case-returns
-
-```rb
-dog = "cuddly"
-
-owner = if dog == "hungry"
-          "Refilling food bowl."
-        elsif dog == "thirsty"
-          "Refilling water bowl."
-        elsif dog == "playful"
-          "Playing tug-of-war."
-        elsif dog == "cuddly"
-          "Snuggling."
-        else
-          "Reading newspaper."
-        end
-```
-
-## `unless` Statements
-
-In addition to the `if` keyword, Ruby also has the `unless` keyword, which acts
-as the opposite of `if`:
-
-```rb
-timer = 15
-
-unless timer == 0
-  puts "Still cooking"
-end
-```
-
-You could write the equivalent with an `if` statement and a negative condition:
-
-```rb
-timer = 15
-
-if timer != 0
-  puts "Still cooking"
-end
-```
-
-But you'll find that the first example is a [bit nicer to read][if vs unless].
-
-[if vs unless]: https://rubystyle.guide/#unless-for-negatives
 
 ## Truthy/Falsy Values
 
 In order to use control flow effectively, it's important to know what values
-Ruby treats as "truthy" and "falsy".
+Python treats as "truthy" and "falsy".
 
-As we saw in the lesson on data types, there are only two values Ruby considers
-falsy: `false` and `nil`. Using those values in control flow means the condition
-will be false:
+As we saw in the lesson on data types, there are many values Python considers
+falsy:
 
-```rb
-def control_flow(value)
-  if value
-    # if the value is truthy
-    puts "yep!"
-  else
-    # if the value is falsy
-    puts "nope!"
-  end
-end
+- Empty lists `[]`
+- Empty tuples `()`
+- Empty dictionaries `{}`
+- Empty sets `set()`
+- Empty strings `''` or `""`
+- Zero of any numeric type (`0`, `0.0`)
+- `None`
+- And, of course, `False`
 
-control_flow(false)
-# => "nope!"
-control_flow(nil)
-# => "nope!"
-control_flow(true)
-# => "yep!"
+Using those values in control flow means the condition
+will be `False`:
+
+```py
+def control_flow(value):
+    if value:
+        # if the value is truthy
+        print("yep!")
+    else:
+        # if the value is falsy
+        print("nope!")
+
+control_flow(False)
+# "nope!"
+control_flow(None)
+# "nope!"
+control_flow(True)
+# "yep!"
 control_flow("")
-# => "yep!"
+# "nope!"
 control_flow(0)
-# => "yep!"
+# "yep!"
+control_flow("0")
+# "nope!"
 ```
 
-## Statement Modifiers
+## `try/except` Statements
 
-One more nice feature of the Ruby language is the ability to use **statement
-modifiers** and write conditions at the end of a line of code. For short,
-one-line conditions, it can improve the readability of your code. For example,
-you could rewrite this example:
+Throughout our Python assignments so far, we have seen a number of different
+**Exceptions**. As we learned in our "Error Messages" lesson, Exceptions are
+a type of error that we can intercept so that our Python application can
+continue to run. `try/except` statements are the tool that allow us to perform
+these interceptions.
 
-```rb
-this_year = Time.now.year
-if this_year == 2046
-  puts "Hey, it's 2046!"
-end
+Let's take a look at how we might handle a common mathematical exception. Copy
+the following code into the Python shell and try to run the `divide()` function
+with different parameters.
+
+```py
+def divide(num1, num2):
+    try:
+        quotient = num1 / num2
+        print(quotient)
+    except:
+        print("An error occurred")
 ```
 
-Using a statement modifier:
+Did you find any parameters that gave you trouble? The `divide()` function will
+fail to perform its primary task if `num2` is 0 or either of the numbers is of
+a non-numerical type. Our `try/except` statement allowed our function to run to
+completion, but `"An error occurred"` is not a particularly helpful message.
 
-```rb
-this_year = Time.now.year
-puts "Hey, it's 2046!" if this_year == 2046
+Since we know the types of exceptions we might see, let's rewrite our code to
+be a little more descriptive:
+
+```py
+def divide(num1, num2):
+    try:
+        quotient = num1 / num2
+        print(quotient)
+    except ZeroDivisionError:
+        print("Error: num2 cannot be equal to 0")
+    except TypeError:
+        print("Error: input must be of type int or float")
 ```
 
-`unless` can also be used as a statement modifier:
+That's looking much more descriptive now!
 
-```rb
-fav_cookie = "Chocolate Chip"
-puts "Your opinion is invalid" unless fav_cookie == "Chocolate Chip"
+Finally, let's take a look at `finally`. Copy and paste the following code
+into the Python shell and test `divide()` with a variety of different
+arguments:
+
+```py
+def divide(num1, num2):
+    try:
+        quotient = num1 / num2
+        print(quotient)
+    except ZeroDivisionError:
+        print("Error: num2 cannot be equal to 0")
+    except TypeError:
+        print("Error: input must be of type int or float")
+    finally:
+        print("Isn't division fun?")
 ```
+
+Use of the `finally` keyword at the end of a `try/except` statement allows us
+to perform actions that we want to occur regardless of whether or not an
+exception has been thrown.
+
+> NOTE: You might see some unhandled exceptions if you provide `divide()` too
+> many arguments or names that have not been defined. Since these technically
+> occur before `divide()` starts working, they cannot be handled with a
+> `try/except` statement inside of `divide()`.
 
 ## `case` Statements
 
-Last but not least, Ruby also has `case` statements, which are used to run
+Last but not least, Python also has `case` statements, which are used to run
 multiple conditions against one value. As a reminder, `case` statements can be
 useful as a replacement for `if/else` statements,
 [when all the conditions use the same comparison][case vs if-else]. Here's a
-side-by-side example with Ruby and JavaScript:
+side-by-side example with Python and JavaScript:
 
-[case vs if-else]: https://rubystyle.guide/#case-vs-if-else
+[case vs if-else]: https://Pythonstyle.guide/#case-vs-if-else
 
 ```js
 // JavaScript
@@ -201,10 +204,10 @@ switch (dog) {
 }
 ```
 
-And in Ruby:
+And in Python:
 
-```rb
-# Ruby
+```py
+# Python
 dog = "cuddly"
 
 case dog
@@ -222,9 +225,9 @@ end
 ```
 
 `case` statements, like `if` statements, also produce a return value, so again,
-we could refactor this Ruby example:
+we could refactor this Python example:
 
-```rb
+```py
 dog = "cuddly"
 
 owner = case dog
@@ -243,7 +246,7 @@ owner = case dog
 
 You can also use `then` with `when` to shorten up each condition to a single line:
 
-```rb
+```py
 dog = "cuddly"
 
 owner = case dog
@@ -259,16 +262,16 @@ owner = case dog
 
 Time to get some practice! Write your code in the `control_flow.rb` file. Run
 `learn test` to check your work. Your goal is to practice using control flow in
-Ruby to familiarize yourself with the syntax. There is a JavaScript version of
+Python to familiarize yourself with the syntax. There is a JavaScript version of
 the solution for each of these deliverables in the `js/index.js` file you can
-look at (but if you want an extra challenge, try solving them in Ruby without
+look at (but if you want an extra challenge, try solving them in Python without
 looking at the JavaScript solution).
 
 Write a method `#admin_login` that takes two arguments, a username and a
 password. If the username is "admin" or "ADMIN" and the password is "12345",
 return "Access granted". Otherwise, return "Access denied".
 
-```rb
+```py
 admin_login("sudo", "12345")
 # => "Access denied"
 admin_login("admin", "12345")
@@ -283,7 +286,7 @@ temperature is between 40 and 65, return "It's a little chilly out there!".
 If the temperature is above 85, return "It's too dang hot out there!".
 Otherwise, return "It's perfect out there!"
 
-```rb
+```py
 hows_the_weather(33)
 # => "Brisk!"
 hows_the_weather(99)
@@ -297,7 +300,7 @@ Write a method `#fizzbuzz` takes in a number. For multiples of three, return
 numbers which are multiples of both three and five, return "FizzBuzz". For
 all other numbers, just return the number itself.
 
-```rb
+```py
 fizzbuzz(1)
 # 1
 fizzbuzz(2)
@@ -316,7 +319,7 @@ numbers. If the operation is one of the following: `+`, `-`, `*`, or `/`,
 return the value of calling the operation on the two numbers. Otherwise,
 output a message saying "Invalid operation!" and return `nil`.
 
-```rb
+```py
 calculator("+", 1, 1)
 # => 2
 calculator("-", 3, 1)
@@ -335,17 +338,17 @@ calculator("nope", 4, 2)
 Since you're already familiar with these control flow structures from
 JavaScript, you should have a good intuition of when it's appropriate to use
 these different tools. Try and develop familiarity with the differences in
-syntax between JavaScript and Ruby first, so that you'll be able to take
-advantage of some of Ruby's unique features like statement modifiers and the
+syntax between JavaScript and Python first, so that you'll be able to take
+advantage of some of Python's unique features like statement modifiers and the
 `unless` keyword in your own code.
 
 One excellent resource for familiarizing yourself with the syntax and the
-preferred conventions of some Rubyists is the
-[Ruby style guide][ruby style guide]. Make sure to bookmark this resource and
+preferred conventions of some Pythonists is the
+[Python style guide][Python style guide]. Make sure to bookmark this resource and
 refer to it if you're ever unsure how to format a particular block of code.
 
 ## Resources
 
-- [Ruby style guide][ruby style guide]
+- [Python style guide][Python style guide]
 
-[ruby style guide]: https://rubystyle.guide
+[Python style guide]: https://Pythonstyle.guide
