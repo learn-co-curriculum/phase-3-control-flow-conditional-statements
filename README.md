@@ -102,6 +102,38 @@ control_flow("0")
 # "nope!"
 ```
 
+### Conditional Expressions
+
+Python also allows us to use **conditional expressions** (or **ternary
+operators**) to evaluate the truthiness of complex statements in a single line.
+
+```py
+age = 1
+
+is_baby = 'baby' if age < 2 else 'not a baby'
+```
+
+This is the equivalent of the following `if/else` statement:
+
+```py
+age = 1
+if age < 2:
+  is_baby = 'baby'
+else:
+  is_baby = 'not a baby'
+```
+
+Conditional expressions in Python are always of the format:
+
+```py
+value_if_true if condition else value_if_false
+```
+
+Python requires a default value (preceded by the `else` keyword) in every
+conditional statement. It may seem like a pain at first, but it helps to
+prevent unexpected exceptions and `None`s as you continue to build your
+application.
+
 ## `try/except` Statements
 
 Throughout our Python assignments so far, we have seen a number of different
@@ -347,6 +379,7 @@ refer to it if you're ever unsure how to format a particular block of code.
 
 ## Resources
 
+- [Python ternary operators](https://book.pythontips.com/en/latest/ternary_operators.html)
 - [PEP 8 - Style Guide for Python Code][PEP 8]
 
 [PEP 8]: https://peps.python.org/pep-0008/
