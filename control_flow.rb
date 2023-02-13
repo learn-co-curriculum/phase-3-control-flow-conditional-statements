@@ -1,5 +1,4 @@
 def admin_login(username, password)
-  # your code here
   if (username.downcase == "admin") && password == "12345"
      return "Access granted"
   else
@@ -8,7 +7,6 @@ def admin_login(username, password)
 end
 
 def hows_the_weather(temperature)
-  # your code here
   response =if (temperature < 40)
               "It's brisk out there!"
             elsif (temperature >= 40 && temperature <= 65)
@@ -21,7 +19,6 @@ def hows_the_weather(temperature)
 end
 
 def fizzbuzz(num)
-  # your code here
   if (num % 3 === 0 && num % 5 === 0)
     return "FizzBuzz"
   elsif (num % 3 === 0)
@@ -35,7 +32,6 @@ end
 
 
 def calculator(operation, num1, num2)
-  # your code here
   case operation
   when "+" then num1 + num2
   when "-" then num1 - num2
